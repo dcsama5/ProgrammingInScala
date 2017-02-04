@@ -1,17 +1,17 @@
 package chapter19
 
-class Queue[T] private (
+class PrivateQueue[T] private (
   private val leading:List[T],
   private val trailing:List[T]
 )
   
-object Queue extends App {
-  val x= new Queue[String](List("ameer","ali"), List("azal","ali"))
+object PrivateQueue extends App {
+  val x= new PrivateQueue[String](List("ameer","ali"), List("azal","ali"))
   
-  def apply[T](xs:T*) = new Queue[T](xs.toList, Nil)
+  def apply[T](xs:T*) = new PrivateQueue[T](xs.toList, Nil)
 
 
-   val y = Queue(1,2,3)
+   val y = PrivateQueue(1,2,3)
     
    for(args <-x.trailing;
        xss<-x.leading;
