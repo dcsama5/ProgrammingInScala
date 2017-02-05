@@ -32,8 +32,8 @@ def apply(t : T1) : R
 
 }
 
-object Test1 extends App with Function1[String, Int] {
+/*object Test1 extends App with Function1[String, Int] {
   
   
   
-}
+}*/
