@@ -1,4 +1,4 @@
-package chapter19
+
 
 trait MusicInstrument {
   
@@ -9,9 +9,46 @@ case class Guitar(productionYear:Int) extends MusicInstrument
 
 case class Piano(productionYear:Int) extends MusicInstrument
 
-import org.scalatest.FunSuite
-class FirstSpec extends FunSuite {  
-  val isVintage:(MusicInstrument => Boolean) = _.productionYear < 1980;
+class Stack[T] {
+    
+    var stackSize:Int = 0
+    var pointer:Int = -1
+    var stackList = List[T]() 
+   
+    def push(myvar:T) {
+      stackList = stackList :+ myvar
+      stackSize+=1
+      pointer+=1
+    }  
+    
+    def pop():Option[T] = {
+      if(stackList == Nil) {
+         println("Empty stack")
+         return None
+      }
+      else {
+        val x = Some(stackList(pointer))
+        pointer-=1
+        stackSize-=1
+        return x
+      }
+    
+    }
+  }
+
+import org.scalatest._
+class FirstSpec extends FunSuite with Matchers{  
+
+  test("should implement stack") {
+    val stack = new Stack[Int]
+    stack.push(1)
+    stack.push(2)
+    
+    assert(stack.pop.getOrElse(0) === 2)
+    assert(stack.pop.getOrElse(0) === 1)
+  }
+  
+    val isVintage:(MusicInstrument => Boolean) = _.productionYear < 1980;
  
  test("should filter vintage guitars") {
     val guitars: List[Guitar] = List(new Guitar(1966), new Guitar(1988))
@@ -22,11 +59,5 @@ class FirstSpec extends FunSuite {
   test("An empty Set should have size 0") {
     assert(Set.empty.size == 0)
   }
-  "A Stack" should "pop values in last-in-first-out order" in {
-    val stack = new Stack[Int]
-    stack.push(1)
-    stack.push(2)
-    assert(stack.pop() === 2)
-    assert(stack.pop() === 1)
-  }
+  
 }
